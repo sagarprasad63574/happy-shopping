@@ -8,11 +8,6 @@ CREATE TABLE users (
     is_admin BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE images (
-    id INTEGER PRIMARY KEY,
-    image_url VARCHAR(MAX)
-);
-
 CREATE TABLE products (
     id INTEGER PRIMARY KEY,
     title TEXT NOT NULL,
@@ -23,8 +18,12 @@ CREATE TABLE products (
     stock INTEGER,
     brand TEXT NOT NULL,
     category TEXT NOT NULL,
-    thumbnail TEXT NOT NULL,
-    image_ID INTEGER NOT NULL REFERENCES images ON DELETE CASCADE 
+    thumbnail TEXT NOT NULL
+);
+
+CREATE TABLE images (
+    id INTEGER REFERENCES products ON DELETE CASCADE,
+    image_url TEXT
 );
 
 CREATE TABLE cart (
