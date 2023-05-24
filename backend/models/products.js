@@ -59,7 +59,8 @@ class Product {
      * */
 
     static async findAll(searchFilters = {}) {
-        let query = `SELECT title,
+        let query = `SELECT id, 
+                        title,
                         description,
                         price,
                         discountPercentage,
@@ -92,8 +93,20 @@ class Product {
         }
 
         // Finalize query and return results
-        query += " ORDER BY title";
+        query += " ORDER BY id";
         const productRes = await db.query(query, queryValues);
+
+        for (let product of productRes.rows) {
+            const imageRes = await db.query(
+                `SELECT id, image_url
+                FROM images
+                WHERE id = $1
+                ORDER BY id`,
+                [product.id],
+            );
+            product.images = imageRes.rows;
+        }
+
         return productRes.rows;
     }
 
@@ -143,37 +156,36 @@ class Product {
      * This is a "partial update" --- it's fine if data doesn't contain all the
      * fields; this only changes provided ones.
      *
-     * Data can include: {name, description, numEmployees, logoUrl}
+     * Data can include: {title, description, price, discountPercentage, rating, stock, category, thumbnail}
      *
-     * Returns {handle, name, description, numEmployees, logoUrl}
+     * Returns {title, description, price, discountPercentage, rating, stock, category, thumbnail}
      *
      * Throws NotFoundError if not found.
      */
 
-    // static async update(handle, data) {
-    //     const { setCols, values } = sqlForPartialUpdate(
-    //         data,
-    //         {
-    //             numEmployees: "num_employees",
-    //             logoUrl: "logo_url",
-    //         });
-    //     const handleVarIdx = "$" + (values.length + 1);
+    static async update(id, data) {
+        const { setCols, values } = sqlForPartialUpdate(data);
+        const handleVarIdx = "$" + (values.length + 1);
 
-    //     const querySql = `UPDATE companies 
-    //                   SET ${setCols} 
-    //                   WHERE handle = ${handleVarIdx} 
-    //                   RETURNING handle, 
-    //                             name, 
-    //                             description, 
-    //                             num_employees AS "numEmployees", 
-    //                             logo_url AS "logoUrl"`;
-    //     const result = await db.query(querySql, [...values, handle]);
-    //     const company = result.rows[0];
+        const querySql = `UPDATE products 
+                      SET ${setCols} 
+                      WHERE id = ${handleVarIdx} 
+                      RETURNING id, 
+                                title, 
+                                description,
+                                price,
+                                discountPercentage,
+                                rating,
+                                stock, 
+                                category,
+                                thumbnail`;
+        const result = await db.query(querySql, [...values, id]);
+        const product = result.rows[0];
 
-    //     if (!company) throw new NotFoundError(`No company: ${handle}`);
+        if (!product) throw new NotFoundError(`No product: ${id}`);
 
-    //     return company;
-    // }
+        return product;
+    }
 
     /** Delete given company from database; returns undefined.
      *
