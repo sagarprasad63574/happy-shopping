@@ -5,7 +5,7 @@
 const jsonschema = require("jsonschema");
 
 const express = require("express");
-const { ensureCorrectUserOrAdmin, ensureAdmin } = require("../middleware/auth");
+const { ensureCorrectUserOrAdmin, ensureAdmin, ensureLoggedIn } = require("../middleware/auth");
 const { BadRequestError } = require("../expressError");
 const User = require("../models/user");
 const { createToken } = require("../helpers/tokens");
@@ -114,6 +114,23 @@ router.delete("/:username", ensureCorrectUserOrAdmin, async function (req, res, 
     try {
         await User.remove(req.params.username);
         return res.json({ deleted: req.params.username });
+    } catch (err) {
+        return next(err);
+    }
+});
+
+
+/** GET /cart  =>  { cart: [{title, description, price, discountPercentage, rating, stock, brand, category, thumbnail, images: [id, image_url]}, ...] }
+ *
+ * Authorization required: ensureLoggedIn
+ **/
+
+router.get("/cart", ensureLoggedIn, async function (req, res, next) {
+    const username = res.locals.user.username;
+
+    try {
+        const cart = await User.products(username);
+        return res.json({ cart });
     } catch (err) {
         return next(err);
     }

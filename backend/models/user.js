@@ -118,7 +118,7 @@ class User {
     /** Given a username, return data about user.
      *
      * Returns { username, first_name, last_name, is_admin, jobs }
-     *   where jobs is { id, title, company_handle, company_name, state }
+     *   where cart is { id, product_id }
      *
      * Throws NotFoundError if user not found.
      **/
@@ -139,12 +139,12 @@ class User {
 
         if (!user) throw new NotFoundError(`No user: ${username}`);
 
-        const userApplicationsRes = await db.query(
-            `SELECT a.job_id
-           FROM applications AS a
-           WHERE a.username = $1`, [username]);
+        const userCartRes = await db.query(
+            `SELECT c.product_id
+           FROM cart AS c
+           WHERE c.username = $1`, [username]);
 
-        user.applications = userApplicationsRes.rows.map(a => a.job_id);
+        user.products = userCartRes.rows.map(c => c.product_id);
         return user;
     }
 
@@ -209,6 +209,29 @@ class User {
         const user = result.rows[0];
 
         if (!user) throw new NotFoundError(`No user: ${username}`);
+    }
+
+    
+    /** Given a username, return data about products in the users cart.
+     *
+     * Returns { cart: [{title, description, price, discountPercentage, rating, stock, brand, category, thumbnail, images: [id, image_url]}, ...]}
+     *
+     **/
+
+
+    static async products(username) {
+
+        let result = await db.query(
+            `SELECT *
+            FROM cart 
+            JOIN products 
+            ON cart.product_id = products.id 
+            WHERE cart.username = $1`,
+            [username],
+        );
+
+        const products = result.rows; 
+        return products; 
     }
 }
 

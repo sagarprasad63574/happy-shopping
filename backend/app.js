@@ -11,7 +11,8 @@ const { authenticateJWT } = require("./middleware/auth");
 const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users");
 const productsRoutes = require("./routes/products");
-// const jobsRoutes = require("./routes/jobs");
+const cartRoutes = require("./routes/cart");
+const favoritesRoutes = require("./routes/favorites");
 
 const morgan = require("morgan");
 
@@ -25,7 +26,8 @@ app.use(authenticateJWT);
 app.use("/auth", authRoutes);
 app.use("/users", usersRoutes);
 app.use("/products", productsRoutes);
-// app.use("/jobs", jobsRoutes);
+app.use("/cart", cartRoutes);
+app.use("/favorites", favoritesRoutes);
 
 
 /** Handle 404 errors -- this matches everything */

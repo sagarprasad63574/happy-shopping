@@ -164,7 +164,7 @@ class Product {
      */
 
     static async update(id, data) {
-        const { setCols, values } = sqlForPartialUpdate(data);
+        const { setCols, values } = sqlForPartialUpdate(data, {});
         const handleVarIdx = "$" + (values.length + 1);
 
         const querySql = `UPDATE products 

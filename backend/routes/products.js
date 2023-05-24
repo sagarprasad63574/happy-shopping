@@ -83,7 +83,7 @@ router.get("/:id", async function (req, res, next) {
     }
 });
 
-/** PATCH /[handle] { fld1, fld2, ... } => { product }
+/** PATCH /[id] { fld1, fld2, ... } => { product }
  *
  * Patches product data.
  *
