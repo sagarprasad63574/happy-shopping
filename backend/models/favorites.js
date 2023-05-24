@@ -48,17 +48,31 @@ class Favorite {
 
     /** Get all products from favorites by current user.
      *
-     * Returns { cart: [ {username, product_id}, ... }
+     * Returns { favorites: [ {username, product_id}, ... }
      * */
 
     static async findAll(username) {
 
         const result = await db.query(
-            `SELECT * FROM favorites 
-            WHERE username = $1
-            ORDER BY product_id`,
+            `SELECT * 
+            FROM favorites 
+            JOIN products 
+            ON favorites.product_id = products.id 
+            WHERE favorites.username = $1
+            ORDER BY products.id`,
             [username],
         );
+
+        for (let product of result.rows) {
+            const imageRes = await db.query(
+                `SELECT id, image_url
+                FROM images
+                WHERE id = $1
+                ORDER BY id`,
+                [product.id],
+            );
+            product.images = imageRes.rows;
+        }
         return result.rows;
     }
 

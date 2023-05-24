@@ -54,11 +54,25 @@ class Cart {
     static async findAll(username) {
 
         const result = await db.query(
-            `SELECT * FROM cart 
-            WHERE username = $1
-            ORDER BY product_id`,
+            `SELECT * 
+            FROM cart 
+            JOIN products 
+            ON cart.product_id = products.id 
+            WHERE cart.username = $1
+            ORDER BY products.id`,
             [username],
         );
+
+        for (let product of result.rows) {
+            const imageRes = await db.query(
+                `SELECT id, image_url
+                FROM images
+                WHERE id = $1
+                ORDER BY id`,
+                [product.id],
+            );
+            product.images = imageRes.rows;
+        }
         return result.rows;
     }
 

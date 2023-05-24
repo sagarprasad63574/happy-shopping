@@ -119,21 +119,4 @@ router.delete("/:username", ensureCorrectUserOrAdmin, async function (req, res, 
     }
 });
 
-
-/** GET /cart  =>  { cart: [{title, description, price, discountPercentage, rating, stock, brand, category, thumbnail, images: [id, image_url]}, ...] }
- *
- * Authorization required: ensureLoggedIn
- **/
-
-router.get("/cart", ensureLoggedIn, async function (req, res, next) {
-    const username = res.locals.user.username;
-
-    try {
-        const cart = await User.products(username);
-        return res.json({ cart });
-    } catch (err) {
-        return next(err);
-    }
-});
-
 module.exports = router;
