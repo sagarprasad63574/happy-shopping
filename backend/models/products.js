@@ -105,7 +105,7 @@ class Product {
      * Throws NotFoundError if not found.
      **/
 
-    static async get(title) {
+    static async get(id) {
         const productRes = await db.query(
             `SELECT 
                   id,
@@ -118,19 +118,19 @@ class Product {
                   category,
                   thumbnail
            FROM products
-           WHERE title = $1`,
-            [title]);
+           WHERE id = $1`,
+            [id]);
 
         const product = productRes.rows[0];
 
-        if (!product) throw new NotFoundError(`No product: ${title}`);
+        if (!product) throw new NotFoundError(`No product: ${id}`);
 
         const imageRes = await db.query(
             `SELECT id, image_url
             FROM images
             WHERE id = $1
             ORDER BY id`,
-            [product.id],
+            [id],
         );
 
         product.images = imageRes.rows;

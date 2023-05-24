@@ -11,7 +11,7 @@ const Product = require("../models/products");
 
 // const companyNewSchema = require("../schemas/companyNew.json");
 // const companyUpdateSchema = require("../schemas/companyUpdate.json");
-// const companySearchSchema = require("../schemas/companySearch.json");
+const productSearchSchema = require("../schemas/productSearch.json");
 
 const router = new express.Router();
 
