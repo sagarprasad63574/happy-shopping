@@ -9,9 +9,9 @@ const { BadRequestError } = require("../expressError");
 const { ensureAdmin } = require("../middleware/auth");
 const Product = require("../models/products");
 
-// const companyNewSchema = require("../schemas/companyNew.json");
-// const companyUpdateSchema = require("../schemas/companyUpdate.json");
-// const companySearchSchema = require("../schemas/companySearch.json");
+const productNewSchema = require("../schemas/productNew.json");
+const productUpdateSchema = require("../schemas/productUpdate.json");
+const productSearchSchema = require("../schemas/productSearch.json");
 
 const router = new express.Router();
 
@@ -66,7 +66,7 @@ router.get("/", async function (req, res, next) {
     }
 });
 
-/** GET /[title]  =>  { product }
+/** GET /[id]  =>  { product }
  *
  *  Product is { title, description, price, discountPercentage, rating, stock, brand, category, thumbnail }
  *   where jobs is [{ id, image_url }, ...]
@@ -74,42 +74,42 @@ router.get("/", async function (req, res, next) {
  * Authorization required: none
  */
 
-router.get("/:title", async function (req, res, next) {
+router.get("/:id", async function (req, res, next) {
     try {
-        const product = await Product.get(req.params.title);
+        const product = await Product.get(req.params.id);
         return res.json({ product });
     } catch (err) {
         return next(err);
     }
 });
 
-/** PATCH /[handle] { fld1, fld2, ... } => { company }
+/** PATCH /[handle] { fld1, fld2, ... } => { product }
  *
- * Patches company data.
+ * Patches product data.
  *
- * fields can be: { name, description, numEmployees, logo_url }
+ * fields can be: { title, description, price, discountPercentage, rating, stock, brand, category, thumbnail }
  *
- * Returns { handle, name, description, numEmployees, logo_url }
+ * Returns { title, description, price, discountPercentage, rating, stock, brand, category, thumbnail }
  *
  * Authorization required: admin
  */
 
-// router.patch("/:handle", ensureAdmin, async function (req, res, next) {
-//     try {
-//         const validator = jsonschema.validate(req.body, companyUpdateSchema);
-//         if (!validator.valid) {
-//             const errs = validator.errors.map(e => e.stack);
-//             throw new BadRequestError(errs);
-//         }
+router.patch("/:id", ensureAdmin, async function (req, res, next) {
+    try {
+        const validator = jsonschema.validate(req.body, productUpdateSchema);
+        if (!validator.valid) {
+            const errs = validator.errors.map(e => e.stack);
+            throw new BadRequestError(errs);
+        }
 
-//         const company = await Company.update(req.params.handle, req.body);
-//         return res.json({ company });
-//     } catch (err) {
-//         return next(err);
-//     }
-// });
+        const product = await Product.update(req.params.id, req.body);
+        return res.json({ product });
+    } catch (err) {
+        return next(err);
+    }
+});
 
-/** DELETE /[handle]  =>  { deleted: handle }
+/** DELETE /[id]  =>  { deleted: id }
  *
  * Authorization: admin
  */
