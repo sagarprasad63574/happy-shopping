@@ -57,7 +57,7 @@ router.delete("/:id", ensureLoggedIn, async function (req, res, next) {
 
     try {
         const favorites = await Favorite.remove(username, product_id);
-        return res.json({ favorites });
+        return res.json({ deleted: product_id });
     } catch (err) {
         return next(err);
     }

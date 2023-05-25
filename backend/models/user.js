@@ -144,7 +144,14 @@ class User {
            FROM cart AS c
            WHERE c.username = $1`, [username]);
 
-        user.products = userCartRes.rows.map(c => c.product_id);
+        user.cart = userCartRes.rows.map(p => p.product_id);
+
+        const userFavoritesRes = await db.query(
+            `SELECT f.product_id
+           FROM favorites AS f
+           WHERE f.username = $1`, [username]);
+
+        user.favorites = userFavoritesRes.rows.map(p => p.product_id);
         return user;
     }
 

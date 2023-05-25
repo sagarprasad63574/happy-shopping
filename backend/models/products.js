@@ -20,7 +20,7 @@ class Product {
         const duplicateCheck = await db.query(
             `SELECT id
            FROM products
-           WHERE handle = $1`,
+           WHERE id = $1`,
             [id]);
 
         if (duplicateCheck.rows[0])
@@ -182,7 +182,7 @@ class Product {
         const result = await db.query(querySql, [...values, id]);
         const product = result.rows[0];
 
-        if (!product) throw new NotFoundError(`No product: ${id}`);
+        if (!product) throw new NotFoundError(`No product: found!`);
 
         return product;
     }
@@ -201,7 +201,7 @@ class Product {
             [id]);
         const product = result.rows[0];
 
-        if (!product) throw new NotFoundError(`No product: ${id}`);
+        if (!product) throw new NotFoundError(`No product: found!`);
     }
 }
 
