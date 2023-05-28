@@ -50,24 +50,37 @@ class HappyShoppingApi {
         return res.products;
     }
 
-    /** Get details on a company by handle. */
+    /** Get products (filtered by title and category if not undefined) */
 
-    static async getCompany(handle) {
-        let res = await this.request(`companies/${handle}`);
-        return res.company;
+    static async getProductsCategory(category) {
+        let res = await this.request("products", { category });
+        return res.products;
     }
 
-    /** Get list of jobs (filtered by title if not undefined) */
+    /** Get products in cart */
 
-    static async getJobs(title) {
-        let res = await this.request("jobs", { title });
-        return res.jobs;
+    static async getProductsInCart(username) {
+        let res = await this.request(`cart/${username}`, {}, "get");;
+        return res.cart;
     }
 
-    /** Apply to a job */
+    /** Get products in cart */
 
-    static async applyToJob(username, id) {
-        await this.request(`users/${username}/jobs/${id}`, {}, "post");
+    static async addProductToCart(username, id) {
+        await this.request(`cart/${username}/${id}`, {}, "post");
+    }
+
+    /** Get products in favorites */
+
+    static async getProductsInFavorites(username) {
+        let res = await this.request(`favorites/${username}`, {}, "get");;
+        return res.favorites;
+    }
+
+    /** Get products in favorites */
+
+    static async addProductToFavorites(username, id) {
+        await this.request(`favorites/${username}/${id}`, {}, "post");
     }
 
     /** Get token for login from username, password. */

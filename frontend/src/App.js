@@ -8,15 +8,17 @@ import Navigation from "./routes-nav/Navigation.js";
 import Routes from "./routes-nav/Routes.js";
 import LoadingSpinner from "./common/LoadingSpinner.js";
 import logo from './logo.svg';
-// import './App.css';
+import './App.css';
 
 export const TOKEN_STORAGE_ID = "happy-shopping-token";
 
 function App() {
   const [infoLoaded, setInfoLoaded] = useState(false);
-  // const [applicationIds, setApplicationIds] = useState(new Set([]));
   const [currentUser, setCurrentUser] = useState(null);
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
+  const [cartProducts, setCartProducts] = useState(new Set([]));
+  const [favoritesProducts, setFavoritesProducts] = useState(new Set([]));
+
 
   useEffect(function loadUserInfo() {
     async function getCurrentUser() {
@@ -26,6 +28,17 @@ function App() {
           HappyShoppingApi.token = token;
           let currentUser = await HappyShoppingApi.getCurrentUser(username);
           setCurrentUser(currentUser);
+
+          let productsInCart = await HappyShoppingApi.getProductsInCart(username);
+          let products_cart = [];
+          productsInCart.forEach(product => products_cart.push(product.product_id));
+          setCartProducts(new Set(products_cart));
+
+          let productsInFavorites = await HappyShoppingApi.getProductsInFavorites(username);
+          let products_favorites = [];
+          productsInFavorites.forEach(product => products_favorites.push(product.product_id));
+          setFavoritesProducts(new Set(products_favorites));
+
         } catch (err) {
           setCurrentUser(null);
         }
@@ -61,12 +74,32 @@ function App() {
     setToken(null);
   }
 
+  function hasAddedToCart(id) {
+    return cartProducts.has(id);
+  }
+
+  function addToCart(id) {
+    if (hasAddedToCart(id)) return;
+    HappyShoppingApi.addProductToCart(currentUser.username, id);
+    setCartProducts(new Set([...cartProducts, id]));
+  }
+
+  function hasAddedToFavorites(id) {
+    return favoritesProducts.has(id);
+  }
+
+  function addToFavorites(id) {
+    if (hasAddedToFavorites(id)) return;
+    HappyShoppingApi.addProductToFavorites(currentUser.username, id);
+    setFavoritesProducts(new Set([...favoritesProducts, id]));
+  }
+
   if (!infoLoaded) return <LoadingSpinner />;
 
   return (
     <BrowserRouter>
       <UserContext.Provider
-        value={{ currentUser, setCurrentUser }}>
+        value={{ currentUser, setCurrentUser, hasAddedToCart, addToCart, hasAddedToFavorites, addToFavorites }}>
         <div className="App">
           <Navigation logout={logout} />
           <Routes login={login} signup={signup} />
