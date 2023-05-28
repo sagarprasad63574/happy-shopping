@@ -5,8 +5,9 @@ import LoginForm from "../auth/LoginForm.js";
 import SignupForm from "../auth/SignupForm.js";
 import PrivateRoute from "./PrivateRoute.js";
 import ProductList from "../products/ProductList.js";
+import Cart from "../cart/Cart.js"
+
 // import JobList from "../jobs/JobList.js";
-// import CompanyDetail from "../companies/CompanyDetail.js";
 // import ProfileForm from "../profiles/ProfileForm.js";
 
 function Routes({ login, signup }) {
@@ -25,13 +26,14 @@ function Routes({ login, signup }) {
                 <PrivateRoute exact path="/products">
                     <ProductList />
                 </PrivateRoute>
+                <PrivateRoute exact path="/cart">
+                    <Cart />
+                </PrivateRoute>
                 {/*
                 <PrivateRoute exact path="/jobs">
                     <JobList />
                 </PrivateRoute>
-                <PrivateRoute exact path="/companies/:handle">
-                    <CompanyDetail />
-                </PrivateRoute>
+
                 <PrivateRoute path="/profile">
                     <ProfileForm />
                 </PrivateRoute> */}

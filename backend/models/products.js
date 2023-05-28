@@ -84,8 +84,8 @@ class Product {
         }
 
         if (category) {
-            queryValues.push(`%${category}%`);
-            whereExpressions.push(`category ILIKE $${queryValues.length}`);
+            queryValues.push(`${category}`);
+            whereExpressions.push(`category LIKE $${queryValues.length}`);
         }
 
         if (whereExpressions.length > 0) {

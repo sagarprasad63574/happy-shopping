@@ -14,11 +14,9 @@ const router = new express.Router();
  *   Authorization required: ensureLoggedIn
  */
 
-router.get("/", ensureLoggedIn, async function (req, res, next) {
-    const username = res.locals.user.username; 
-
+router.get("/:username", ensureLoggedIn, async function (req, res, next) {
     try {
-        const cart = await Cart.findAll(username);
+        const cart = await Cart.findAll(req.params.username);
         return res.json({ cart });
     } catch (err) {
         return next(err);
@@ -32,8 +30,8 @@ router.get("/", ensureLoggedIn, async function (req, res, next) {
  *  Authorization required: ensureLoggedIn
  */
 
-router.post("/:id", ensureLoggedIn, async function (req, res, next) {
-    const username = res.locals.user.username;
+router.post("/:username/:id", ensureLoggedIn, async function (req, res, next) {
+    const username = req.params.username;
     const product_id = req.params.id;
 
     try {
@@ -51,8 +49,8 @@ router.post("/:id", ensureLoggedIn, async function (req, res, next) {
  *  Authorization required: ensureLoggedIn
  */
 
-router.delete("/:id", ensureLoggedIn, async function (req, res, next) {
-    const username = res.locals.user.username;
+router.delete("/:username/:id", ensureLoggedIn, async function (req, res, next) {
+    const username = req.params.username;
     const product_id = req.params.id;
 
     try {
