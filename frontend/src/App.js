@@ -99,7 +99,14 @@ function App() {
   return (
     <BrowserRouter>
       <UserContext.Provider
-        value={{ currentUser, setCurrentUser, hasAddedToCart, addToCart, hasAddedToFavorites, addToFavorites }}>
+        value={{ currentUser, 
+                setCurrentUser, 
+                setCartProducts, 
+                setFavoritesProducts, 
+                hasAddedToCart, 
+                addToCart, 
+                hasAddedToFavorites, 
+                addToFavorites }}>
         <div className="App">
           <Navigation logout={logout} />
           <Routes login={login} signup={signup} />

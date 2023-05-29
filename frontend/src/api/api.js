@@ -73,13 +73,27 @@ class HappyShoppingApi {
     /** Increment quantity in cart */
 
     static async incrementQuantity(username, id) {
-        await this.request(`cart/${username}/${id}/increment`, {}, "post");
+        let res = await this.request(`cart/${username}/${id}/increment`, {}, "post");
+        return res.cart;
     }
 
     /** Decrement quantity in cart */
 
     static async decrementQuantity(username, id) {
-        await this.request(`cart/${username}/${id}/decrement`, {}, "post");
+        let res = await this.request(`cart/${username}/${id}/decrement`, {}, "post");
+        return res.cart;
+    }
+
+    /** Delete product in cart */
+
+    static async deleteProductInCart(username, id) {
+        await this.request(`cart/${username}/${id}`, {}, "delete");
+    }
+
+    /** Delete all product in cart */
+
+    static async deleteAllProductInCart(username) {
+        await this.request(`cart/${username}`, {}, "delete");
     }
 
     /** Get products in favorites */

@@ -22,6 +22,7 @@ CREATE TABLE products (
 );
 
 CREATE TABLE images (
+    key SERIAL PRIMARY KEY,
     id INTEGER REFERENCES products on DELETE CASCADE,
     image_url TEXT
 );

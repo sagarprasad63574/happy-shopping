@@ -7,9 +7,6 @@ import PrivateRoute from "./PrivateRoute.js";
 import ProductList from "../products/ProductList.js";
 import Cart from "../cart/Cart.js"
 
-// import JobList from "../jobs/JobList.js";
-// import ProfileForm from "../profiles/ProfileForm.js";
-
 function Routes({ login, signup }) {
     return (
         <div className="pt-5">
@@ -29,14 +26,6 @@ function Routes({ login, signup }) {
                 <PrivateRoute exact path="/cart">
                     <Cart />
                 </PrivateRoute>
-                {/*
-                <PrivateRoute exact path="/jobs">
-                    <JobList />
-                </PrivateRoute>
-
-                <PrivateRoute path="/profile">
-                    <ProfileForm />
-                </PrivateRoute> */}
                 <Redirect to="/" />
             </Switch>
         </div>

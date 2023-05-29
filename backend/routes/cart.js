@@ -61,7 +61,25 @@ router.delete("/:username/:id", ensureLoggedIn, async function (req, res, next) 
     }
 });
 
-/** POST /[id]  =>  { cart }
+/** DELETE /[id]  =>  { cart }
+ *
+ *  Cart is { username }
+ *
+ *  Authorization required: ensureLoggedIn
+ */
+
+router.delete("/:username", ensureLoggedIn, async function (req, res, next) {
+    const username = req.params.username;
+
+    try {
+        const cart = await Cart.removeAll(username);
+        return res.json({ deleted: "Deleted all products in cart!" });
+    } catch (err) {
+        return next(err);
+    }
+});
+
+/** POST /[id]/increment  =>  { cart }
  *
  *  Cart is { username, product_id }
  *
@@ -80,7 +98,7 @@ router.post("/:username/:id/increment", ensureLoggedIn, async function (req, res
     }
 });
 
-/** POST /[id]  =>  { cart }
+/** POST /[id]/decrement  =>  { cart }
  *
  *  Cart is { username, product_id }
  *

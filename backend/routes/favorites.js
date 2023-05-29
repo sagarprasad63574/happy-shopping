@@ -60,4 +60,22 @@ router.delete("/:username/:id", ensureLoggedIn, async function (req, res, next) 
         return next(err);
     }
 });
+
+/** DELETE /[id]  =>  { cart }
+ *
+ *  Favorite is { username }
+ *
+ *  Authorization required: ensureLoggedIn
+ */
+
+router.delete("/:username", ensureLoggedIn, async function (req, res, next) {
+    const username = req.params.username;
+
+    try {
+        const favorites = await Favorite.removeAll(username);
+        return res.json({ deleted: "Deleted all products in favorites!" });
+    } catch (err) {
+        return next(err);
+    }
+});
 module.exports = router;

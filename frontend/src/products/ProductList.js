@@ -24,7 +24,6 @@ function ProductList() {
     }
 
     if (!products) return <LoadingSpinner />;
-    console.log(products);
 
     return (
         <section>

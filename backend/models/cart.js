@@ -21,7 +21,7 @@ class Cart {
 
         const product = checkProductExists.rows[0];
         if (!product) throw new NotFoundError(`No product found!`);
-        
+
         const duplicateCheck = await db.query(
             `SELECT username, product_id
             FROM cart
@@ -65,7 +65,7 @@ class Cart {
 
         for (let product of result.rows) {
             const imageRes = await db.query(
-                `SELECT id, image_url
+                `SELECT key, id, image_url
                 FROM images
                 WHERE id = $1
                 ORDER BY id`,
@@ -94,6 +94,24 @@ class Cart {
         if (!cart) throw new NotFoundError(`No product found!`);
     }
 
+    /** Remove a product from cart by current user.
+     *
+     * Returns {username, product_id}
+     * */
+
+    static async removeAll(username) {
+        const result = await db.query(
+            `DELETE 
+               FROM cart
+               WHERE username = $1 
+               RETURNING username, product_id, quantity`,
+            [username]);
+
+        const cart = result.rows;
+
+        if (!cart) throw new NotFoundError(`No products in cart!`);
+    }
+
     static async increment(username, product_id) {
         let quantity = await db.query(
             `SELECT quantity 
@@ -104,10 +122,9 @@ class Cart {
                 product_id
             ]
         );
-        
+
         let qty = quantity.rows[0].quantity;
-        console.log(qty);
-        qty = qty+1; 
+        qty = qty + 1;
 
         const result = await db.query(
             `UPDATE cart
@@ -115,14 +132,14 @@ class Cart {
             WHERE username = $2 AND product_id = $3
             RETURNING username, product_id, quantity`,
             [
-                quantity, 
+                qty,
                 username,
                 product_id
             ],
         );
 
         const cart = result.rows[0];
-        return cart; 
+        return cart;
     }
 
     static async decrement(username, product_id) {
@@ -135,9 +152,11 @@ class Cart {
                 product_id
             ]
         );
-        
-        if (quantity-1 < 1) throw new BadRequestError(`Quantity cannot be lower than 1`)
-        quantity = quantity-1; 
+
+        let qty = quantity.rows[0].quantity;
+
+        if (qty - 1 < 1) throw new BadRequestError(`Quantity cannot be lower than 1`)
+        qty = qty - 1;
 
         const result = await db.query(
             `UPDATE cart
@@ -145,14 +164,14 @@ class Cart {
             WHERE username = $2 AND product_id = $3
             RETURNING username, product_id, quantity`,
             [
-                quantity, 
+                qty,
                 username,
                 product_id
             ],
         );
 
         const cart = result.rows[0];
-        return cart; 
+        return cart;
     }
 }
 

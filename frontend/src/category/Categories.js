@@ -4,7 +4,6 @@ function Categories({ searchCategory }) {
 
     function handleSubmit(evt) {
         evt.preventDefault();
-        console.log('event.target: ', evt.target);
         searchCategory(evt.target.getAttribute('value') || undefined);
     }
 

@@ -65,7 +65,7 @@ class Favorite {
 
         for (let product of result.rows) {
             const imageRes = await db.query(
-                `SELECT id, image_url
+                `SELECT key, id, image_url
                 FROM images
                 WHERE id = $1
                 ORDER BY id`,
@@ -92,6 +92,24 @@ class Favorite {
         const favorites = result.rows[0];
 
         if (!favorites) throw new NotFoundError(`No product found!`);
+    }
+
+    /** Remove a product from cart by current user.
+     *
+     * Returns {username, product_id}
+     * */
+
+    static async removeAll(username) {
+        const result = await db.query(
+            `DELETE 
+               FROM favorites
+               WHERE username = $1 
+               RETURNING username, product_id, quantity`,
+            [username]);
+
+        const cart = result.rows;
+
+        if (!cart) throw new NotFoundError(`No products in favorites!`);
     }
 }
 

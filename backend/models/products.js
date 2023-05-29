@@ -98,7 +98,7 @@ class Product {
 
         for (let product of productRes.rows) {
             const imageRes = await db.query(
-                `SELECT id, image_url
+                `SELECT key, id, image_url
                 FROM images
                 WHERE id = $1
                 ORDER BY id`,
@@ -139,7 +139,7 @@ class Product {
         if (!product) throw new NotFoundError(`No product: ${id}`);
 
         const imageRes = await db.query(
-            `SELECT id, image_url
+            `SELECT key, id, image_url
             FROM images
             WHERE id = $1
             ORDER BY id`,

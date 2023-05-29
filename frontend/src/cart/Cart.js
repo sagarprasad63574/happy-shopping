@@ -1,20 +1,62 @@
 import React, { useContext, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import HappyShoppingApi from "../api/api.js";
 import ProductCard from "./ProductCard.js";
 import LoadingSpinner from "../common/LoadingSpinner.js";
 import UserContext from "../auth/UserContext.js";
 
 function Cart() {
-    const { currentUser } = useContext(UserContext);
+    const { currentUser, setCartProducts } = useContext(UserContext);
     const [products, setProducts] = useState(null);
+    const [itemPrices, setitemPrices] = useState(null);
+    const [totalPrice, setTotalPrice] = useState(null);
+    const [totalItems, setTotalItems] = useState(null);
 
     useEffect(function getProductsOnMount() {
         findProducts();
+        calculateTotalPrice();
     }, []);
 
     async function findProducts() {
         let products = await HappyShoppingApi.getProductsInCart(currentUser.username);
         setProducts(products);
+    }
+
+    async function updateCartProducts() {
+        let productsInCart = await HappyShoppingApi.getProductsInCart(currentUser.username);
+        let products_cart = [];
+        productsInCart.forEach(product => products_cart.push(product.product_id));
+        setCartProducts(new Set(products_cart));
+    }
+
+    async function calculateTotalPrice() {
+        let products = await HappyShoppingApi.getProductsInCart(currentUser.username);
+
+        let total = 0;
+        products.map(product => {
+            total += product.quantity * product.price;
+        });
+
+        let items = 0;
+        products.map(product => {
+            items += product.quantity;
+        });
+
+        setitemPrices(total);
+        setTotalItems(items);
+
+        if (!totalPrice) setTotalPrice(total + 5);
+    }
+
+    async function calculateShipping(evt) {
+        let shipping = +evt.target.value;
+        setTotalPrice(itemPrices + shipping);
+    }
+
+    async function deleteAllProducts() {
+        let removeAll = await HappyShoppingApi.deleteAllProductInCart(currentUser.username);
+        findProducts();
+        updateCartProducts();
     }
 
     if (!products) return <LoadingSpinner />;
@@ -31,7 +73,7 @@ function Cart() {
                                         <div className="p-5">
                                             <div className="d-flex justify-content-between align-items-center mb-5">
                                                 <h1 className="fw-bold mb-0 text-black">Shopping Cart</h1>
-                                                <h6 className="mb-0 text-muted">{products.length} items</h6>
+                                                <h6 className="mb-0 text-muted">{totalItems} items</h6>
                                             </div>
                                             {products.length
                                                 ? (
@@ -50,15 +92,20 @@ function Cart() {
                                                                 brand={product.brand}
                                                                 category={product.category}
                                                                 thumbnail={product.thumbnail}
+                                                                calculateTotalPrice={calculateTotalPrice}
                                                             />
                                                         ))}
                                                     </div>
                                                 ) : (
-                                                    <p classNameName="lead">Sorry, no products in cart!</p>
+                                                    <p className="lead">Sorry, no products in cart!</p>
                                                 )}
                                             <div className="pt-5">
-                                                <h6 className="mb-0"><a href="#!" className="text-body"><i
-                                                    className="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                                                <h6 className="mb-0">
+                                                    <Link to="/products"> 
+                                                        <i className="fas fa-long-arrow-alt-left me-2"></i>
+                                                        Back to shop
+                                                    </Link>
+                                                </h6>
                                             </div>
                                         </div>
                                     </div>
@@ -67,18 +114,18 @@ function Cart() {
                                             <h3 className="fw-bold mb-5 mt-2 pt-1">Summary</h3>
 
                                             <div className="d-flex justify-content-between mb-4">
-                                                <h5 className="text-uppercase">items {products.length}</h5>
-                                                <h5>€ 132.00</h5>
+                                                <h5 className="text-uppercase">items {totalItems}</h5>
+                                                <h5>$ {itemPrices}</h5>
                                             </div>
 
                                             <h5 className="text-uppercase mb-3">Shipping</h5>
 
                                             <div className="mb-4 pb-2">
-                                                <select className="select">
-                                                    <option value="1">Standard-Delivery- €5.00</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                    <option value="4">Four</option>
+                                                <select className="select" onChange={calculateShipping}>
+                                                    <option value="5">Standard-Delivery- $5.00</option>
+                                                    <option value="25">Two- $25.00</option>
+                                                    <option value="15">Three- $15.00</option>
+                                                    <option value="10">Four- $10.00</option>
                                                 </select>
                                             </div>
 
@@ -93,11 +140,16 @@ function Cart() {
 
                                             <div className="d-flex justify-content-between mb-5">
                                                 <h5 className="text-uppercase">Total price</h5>
-                                                <h5>€ 137.00</h5>
+                                                <h5>$ {totalPrice}</h5>
                                             </div>
 
-                                            <button type="button" className="btn btn-dark btn-block btn-lg"
-                                                data-mdb-ripple-color="dark">Register</button>
+                                            <button
+                                                type="button"
+                                                className="btn btn-dark btn-block btn-lg"
+                                                data-mdb-ripple-color="dark"
+                                                onClick={deleteAllProducts}>
+                                                Checkout
+                                            </button>
 
                                         </div>
                                     </div>
