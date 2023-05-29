@@ -64,10 +64,22 @@ class HappyShoppingApi {
         return res.cart;
     }
 
-    /** Get products in cart */
+    /** Add a product in cart */
 
     static async addProductToCart(username, id) {
         await this.request(`cart/${username}/${id}`, {}, "post");
+    }
+
+    /** Increment quantity in cart */
+
+    static async incrementQuantity(username, id) {
+        await this.request(`cart/${username}/${id}/increment`, {}, "post");
+    }
+
+    /** Decrement quantity in cart */
+
+    static async decrementQuantity(username, id) {
+        await this.request(`cart/${username}/${id}/decrement`, {}, "post");
     }
 
     /** Get products in favorites */
@@ -77,7 +89,7 @@ class HappyShoppingApi {
         return res.favorites;
     }
 
-    /** Get products in favorites */
+    /** Add a product in favorites */
 
     static async addProductToFavorites(username, id) {
         await this.request(`favorites/${username}/${id}`, {}, "post");

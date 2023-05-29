@@ -29,6 +29,7 @@ CREATE TABLE images (
 CREATE TABLE cart (
     username VARCHAR(25) REFERENCES users ON DELETE CASCADE,
     product_id INTEGER REFERENCES products ON DELETE CASCADE,
+    quantity INTEGER NOT NULL DEFAULT 1, 
     PRIMARY KEY (username, product_id)
 );
 

@@ -24,6 +24,7 @@ function ProductList() {
     }
 
     if (!products) return <LoadingSpinner />;
+    console.log(products);
 
     return (
         <section>
@@ -48,6 +49,7 @@ function ProductList() {
                                     brand={product.brand}
                                     category={product.category}
                                     thumbnail={product.thumbnail}
+                                    images={product.images}
                                 />
                             ))}
                         </div>

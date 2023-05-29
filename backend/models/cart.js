@@ -93,6 +93,67 @@ class Cart {
 
         if (!cart) throw new NotFoundError(`No product found!`);
     }
+
+    static async increment(username, product_id) {
+        let quantity = await db.query(
+            `SELECT quantity 
+            FROM cart
+            WHERE username = $1 AND product_id = $2`,
+            [
+                username,
+                product_id
+            ]
+        );
+        
+        let qty = quantity.rows[0].quantity;
+        console.log(qty);
+        qty = qty+1; 
+
+        const result = await db.query(
+            `UPDATE cart
+            SET quantity = $1
+            WHERE username = $2 AND product_id = $3
+            RETURNING username, product_id, quantity`,
+            [
+                quantity, 
+                username,
+                product_id
+            ],
+        );
+
+        const cart = result.rows[0];
+        return cart; 
+    }
+
+    static async decrement(username, product_id) {
+        let quantity = await db.query(
+            `SELECT quantity 
+            FROM cart
+            WHERE username = $1 AND product_id = $2`,
+            [
+                username,
+                product_id
+            ]
+        );
+        
+        if (quantity-1 < 1) throw new BadRequestError(`Quantity cannot be lower than 1`)
+        quantity = quantity-1; 
+
+        const result = await db.query(
+            `UPDATE cart
+            SET quantity = $1
+            WHERE username = $2 AND product_id = $3
+            RETURNING username, product_id, quantity`,
+            [
+                quantity, 
+                username,
+                product_id
+            ],
+        );
+
+        const cart = result.rows[0];
+        return cart; 
+    }
 }
 
 

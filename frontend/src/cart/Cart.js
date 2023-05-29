@@ -1,56 +1,3 @@
-// import React, { useContext, useState, useEffect } from "react";
-// import HappyShoppingApi from "../api/api.js";
-// import ProductCard from "./ProductCard.js";
-// import LoadingSpinner from "../common/LoadingSpinner.js";
-// import UserContext from "../auth/UserContext.js";
-
-// function ProductList() {
-//     const { currentUser } = useContext(UserContext);
-
-//     const [products, setProducts] = useState(null);
-
-//     useEffect(function getProductsOnMount() {
-//         findProducts();
-//     }, []);
-
-//     async function findProducts() {
-//         let products = await HappyShoppingApi.getProductsInCart(currentUser.username);
-//         setProducts(products);
-//     }
-
-//     if (!products) return <LoadingSpinner />;
-
-//     return (
-//         <div classNameName = "col-md-8 offset-md-2">
-//             {products.length
-//                 ? (
-//                     <div>
-//                         {products.map(product => (
-//                             <ProductCard
-//                                 key={product.id}
-//                                 id={product.id}
-//                                 title={product.title}
-//                                 description={product.description}
-//                                 price={product.price}
-//                                 discountPercentage={product.discountPercentage}
-//                                 rating={product.rating}
-//                                 stock={product.stock}
-//                                 brand={product.brand}
-//                                 category={product.category}
-//                                 thumbnail={product.thumbnail}
-//                             />
-//                         ))}
-//                     </div>
-//                 ) : (
-//                     <p classNameName="lead">Sorry, no results were found!</p>
-//                 )}
-//         </div>
-
-//     );
-// }
-
-// export default ProductList;
-
 import React, { useContext, useState, useEffect } from "react";
 import HappyShoppingApi from "../api/api.js";
 import ProductCard from "./ProductCard.js";
@@ -93,6 +40,7 @@ function Cart() {
                                                             <ProductCard
                                                                 key={product.id}
                                                                 id={product.id}
+                                                                quantity={product.quantity}
                                                                 title={product.title}
                                                                 description={product.description}
                                                                 price={product.price}

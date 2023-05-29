@@ -60,4 +60,43 @@ router.delete("/:username/:id", ensureLoggedIn, async function (req, res, next) 
         return next(err);
     }
 });
+
+/** POST /[id]  =>  { cart }
+ *
+ *  Cart is { username, product_id }
+ *
+ *  Authorization required: ensureLoggedIn
+ */
+
+router.post("/:username/:id/increment", ensureLoggedIn, async function (req, res, next) {
+    const username = req.params.username;
+    const product_id = req.params.id;
+
+    try {
+        const cart = await Cart.increment(username, product_id);
+        return res.json({ cart });
+    } catch (err) {
+        return next(err);
+    }
+});
+
+/** POST /[id]  =>  { cart }
+ *
+ *  Cart is { username, product_id }
+ *
+ *  Authorization required: ensureLoggedIn
+ */
+
+router.post("/:username/:id/decrement", ensureLoggedIn, async function (req, res, next) {
+    const username = req.params.username;
+    const product_id = req.params.id;
+
+    try {
+        const cart = await Cart.decrement(username, product_id);
+        return res.json({ cart });
+    } catch (err) {
+        return next(err);
+    }
+});
+
 module.exports = router;
