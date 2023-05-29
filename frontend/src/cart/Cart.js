@@ -8,7 +8,7 @@ import UserContext from "../auth/UserContext.js";
 function Cart() {
     const { currentUser, setCartProducts } = useContext(UserContext);
     const [products, setProducts] = useState(null);
-    const [itemPrices, setitemPrices] = useState(null);
+    const [itemPrices, setItemPrices] = useState(null);
     const [totalPrice, setTotalPrice] = useState(null);
     const [totalItems, setTotalItems] = useState(null);
 
@@ -42,10 +42,9 @@ function Cart() {
             items += product.quantity;
         });
 
-        setitemPrices(total);
+        setItemPrices(total);
         setTotalItems(items);
-
-        if (!totalPrice) setTotalPrice(total + 5);
+        setTotalPrice(total + 5);
     }
 
     async function calculateShipping(evt) {

@@ -21,8 +21,7 @@ function Categories({ searchCategory }) {
                                 value="smartphones"
                             >
                                 <i className="fas fa-mobile-alt fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="smartphones"
+                                    style={{ pointerEvents: "none"}}
                                 ></i>
                             </button>
                             <div className="text-dark">Smartphones</div>
@@ -38,8 +37,7 @@ function Categories({ searchCategory }) {
                                 value="laptops"
                             >
                                 <i className="fas fa-laptop fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="laptops"
+                                    style={{ pointerEvents: "none"}}
                                 ></i>
                             </button>
                             <div className="text-dark">Laptops</div>
@@ -55,8 +53,7 @@ function Categories({ searchCategory }) {
                                 value="fragrances"
                             >
                                 <i className="fas fa-flask fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="fragrances"
+                                    style={{ pointerEvents: "none"}}
                                 ></i>
                             </button>
                             <div className="text-dark">Fragrances</div>
@@ -72,8 +69,7 @@ function Categories({ searchCategory }) {
                                 value="skincare"
                             >
                                 <i className="fas fa-spa fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="skincare"
+                                    style={{ pointerEvents: "none"}}
                                 ></i>
                             </button>
                             <div className="text-dark">Skincare</div>
@@ -93,8 +89,7 @@ function Categories({ searchCategory }) {
                                 value="groceries"
                             >
                                 <i className="fas fa-apple-alt fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="groceries"
+                                    style={{ pointerEvents: "none"}}
                                 ></i>
                             </button>
                             <div className="text-dark">Groceries</div>
@@ -110,8 +105,7 @@ function Categories({ searchCategory }) {
                                 value="home-decoration"
                             >
                                 <i className="fas fa-house-user fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="home-decoration"
+                                    style={{ pointerEvents: "none"}}
                                 ></i>
                             </button>
                             <div className="text-dark">Home Decoration</div>
@@ -127,8 +121,7 @@ function Categories({ searchCategory }) {
                                 value="furniture"
                             >
                                 <i className="fas fa-chair fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="furniture"
+                                    style={{ pointerEvents: "none"}}
                                 ></i>
                             </button>
                             <div className="text-dark">Furniture</div>
@@ -144,8 +137,7 @@ function Categories({ searchCategory }) {
                                 value="tops"
                             >
                                 <i className="fas fa-tshirt fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="tops"
+                                    style={{ pointerEvents: "none"}}
                                 ></i>
                             </button>
                             <div className="text-dark">Tops</div>
@@ -158,16 +150,13 @@ function Categories({ searchCategory }) {
                     <div className="col-3">
                         <span className="text-center d-flex flex-column justify-content-center">
                             <button
-                                type="button"
                                 className="btn btn-outline-secondary mx-auto p-3 mb-2"
                                 data-mdb-ripple-color="dark"
                                 onClick={handleSubmit}
                                 value="womens-dresses"
                             >
-                                <i className="fas fa-person-dress fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="womens-dresses"
-                                ></i>
+                                <i className="fas fa-person-dress fa-xl fa-fw" 
+                                    style={{ pointerEvents: "none"}}></i>
                             </button>
                             <div className="text-dark">Womens Dresses</div>
                         </span>
@@ -182,8 +171,7 @@ function Categories({ searchCategory }) {
                                 value="womens-shoes"
                             >
                                 <i className="fas fa-shoe-prints fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="womens-shoes"
+                                    style={{ pointerEvents: "none"}}
                                 ></i>
                             </button>
                             <div className="text-dark">Womens Shoes</div>
@@ -199,8 +187,7 @@ function Categories({ searchCategory }) {
                                 value="mens-shirts"
                             >
                                 <i className="fas fa-tshirt fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="mens-shirts"
+                                    style={{ pointerEvents: "none"}}
                                 ></i>
                             </button>
                             <div className="text-dark">Mens Shirts</div>
@@ -216,8 +203,7 @@ function Categories({ searchCategory }) {
                                 value="mens-shoes"
                             >
                                 <i className="fas fa-shoe-prints fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="mens-shoes"
+                                    style={{ pointerEvents: "none"}}
                                 ></i>
                             </button>
                             <div className="text-dark">Mens Shoes</div>
@@ -237,8 +223,7 @@ function Categories({ searchCategory }) {
                                 value="mens-watches"
                             >
                                 <i className="bi bi-watch fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="mens-watches"
+                                    style={{ pointerEvents: "none"}}
                                 ></i>
                             </button>
                             <div className="text-dark">Mens Watches</div>
@@ -254,8 +239,7 @@ function Categories({ searchCategory }) {
                                 value="womens-watches"
                             >
                                 <i className="bi bi-watch fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="womens-watches"
+                                    style={{ pointerEvents: "none"}}
                                 ></i>
                             </button>
                             <div className="text-dark">Womens Watches</div>
@@ -271,8 +255,7 @@ function Categories({ searchCategory }) {
                                 value="womens-bags"
                             >
                                 <i className="fas fa-shopping-bag fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="womens-bags"
+                                    style={{ pointerEvents: "none"}}
                                 ></i>
                             </button>
                             <div className="text-dark">Womens Bags</div>
@@ -288,8 +271,7 @@ function Categories({ searchCategory }) {
                                 value="womens-jewellery"
                             >
                                 <i className="fas fa-gem fa-xl fa-fw"
-                                    onClick={handleSubmit}
-                                    value="womens-jewellery"
+                                    style={{ pointerEvents: "none"}}
                                 ></i>
                             </button>
                             <div className="text-dark">Womens Jewellery</div>

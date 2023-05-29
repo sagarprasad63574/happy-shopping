@@ -40,12 +40,12 @@ function ProductCard({ id, title, description, price, discountPercentage, rating
                 <Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
                     {images.map(img => (
                         <Carousel.Item key={img.key}>
-                                <img style={{ maxHeight: "200px" }}
-                                    className="d-block w-100"
-                                    src={img.image_url}
-                                    alt={img.image_url}
-                                    loading="lazy"
-                                />
+                            <img style={{ maxHeight: "200px" }}
+                                className="d-block w-100"
+                                src={img.image_url}
+                                alt={img.image_url}
+                                loading="lazy"
+                            />
                         </Carousel.Item>
                     ))}
                 </Carousel>
@@ -58,7 +58,8 @@ function ProductCard({ id, title, description, price, discountPercentage, rating
                     </h5>
                     <p className="card-text">
                         <small>{description}</small> <br></br>
-                        Rating: {rating} Stock: {stock}<br></br>
+                        <div class="read-only-ratings" data-rateyo-read-only="true"></div>
+                        {/* Rating: {rating} Stock: {stock}<br></br> */}
                     </p>
                     <h3> ${price} </h3>
                     <button
