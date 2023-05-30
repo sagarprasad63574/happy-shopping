@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import "./ProductCard.css";
 import HappyShoppingApi from "../api/api.js";
 import UserContext from "../auth/UserContext.js";
@@ -22,14 +22,15 @@ function ProductCard({ id, title, quantity, description, price, discountPercenta
     }
 
     async function decrement() {
-        if (productQuantity == 1) return;
+        if (productQuantity === 1) return;
         let qty = await HappyShoppingApi.decrementQuantity(currentUser.username, id);
         setProductQuantity(qty.quantity);
         calculateTotalPrice();
     }
 
     async function remove() {
-        let remove = await HappyShoppingApi.deleteProductInCart(currentUser.username, id);
+        await HappyShoppingApi.deleteProductInCart(currentUser.username, id);
+    
         setShow(false);
         calculateTotalPrice();
         updateCartProducts();
@@ -73,7 +74,7 @@ function ProductCard({ id, title, quantity, description, price, discountPercenta
                             className="btn btn-danger btn-mg"
                             onClick={remove}
                         >
-                            <i class="bi bi-trash"></i>
+                            <i className="bi bi-trash"></i>
                         </button>
                     </div>
                 </>

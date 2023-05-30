@@ -109,6 +109,18 @@ class HappyShoppingApi {
         await this.request(`favorites/${username}/${id}`, {}, "post");
     }
 
+    /** Delete product in favorites */
+
+    static async deleteProductInFavorites(username, id) {
+        await this.request(`favorites/${username}/${id}`, {}, "delete");
+    }
+
+    /** Delete all product in favorites */
+
+    static async deleteAllProductInFavorites(username) {
+        await this.request(`favorites/${username}`, {}, "delete");
+    }
+
     /** Get token for login from username, password. */
 
     static async login(data) {

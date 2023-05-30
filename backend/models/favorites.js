@@ -104,7 +104,7 @@ class Favorite {
             `DELETE 
                FROM favorites
                WHERE username = $1 
-               RETURNING username, product_id, quantity`,
+               RETURNING username, product_id`,
             [username]);
 
         const cart = result.rows;

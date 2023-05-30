@@ -6,6 +6,8 @@ import SignupForm from "../auth/SignupForm.js";
 import PrivateRoute from "./PrivateRoute.js";
 import ProductList from "../products/ProductList.js";
 import Cart from "../cart/Cart.js"
+import Favorites from "../favorites/Favorites.js"
+import ProfileForm from "../profiles/ProfileForm.js";
 
 function Routes({ login, signup }) {
     return (
@@ -25,6 +27,12 @@ function Routes({ login, signup }) {
                 </PrivateRoute>
                 <PrivateRoute exact path="/cart">
                     <Cart />
+                </PrivateRoute>
+                <PrivateRoute exact path="/favorites">
+                    <Favorites />
+                </PrivateRoute>
+                <PrivateRoute path="/profile">
+                    <ProfileForm />
                 </PrivateRoute>
                 <Redirect to="/" />
             </Switch>

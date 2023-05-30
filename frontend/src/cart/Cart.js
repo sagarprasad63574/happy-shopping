@@ -12,11 +12,33 @@ function Cart() {
     const [totalPrice, setTotalPrice] = useState(null);
     const [totalItems, setTotalItems] = useState(null);
 
-    useEffect(function getProductsOnMount() {
-        findProducts();
-        calculateTotalPrice();
-    }, []);
+    // useEffect(function getProductsOnMount() {
+    //     findProducts();
+    //     calculateTotalPrice();
+    // }, []);
 
+    useEffect(() => {
+        async function getProductsOnMount() {
+            let products = await HappyShoppingApi.getProductsInCart(currentUser.username);
+            setProducts(products);
+
+            let total = 0;
+            products.forEach(product => {
+                total += product.quantity * product.price;
+            });
+    
+            let items = 0;
+            products.forEach(product => {
+                items += product.quantity;
+            });
+    
+            setItemPrices(total);
+            setTotalItems(items);
+            setTotalPrice(total + 5);
+        }
+        getProductsOnMount();
+      }, [currentUser.username])
+      
     async function findProducts() {
         let products = await HappyShoppingApi.getProductsInCart(currentUser.username);
         setProducts(products);
@@ -33,12 +55,12 @@ function Cart() {
         let products = await HappyShoppingApi.getProductsInCart(currentUser.username);
 
         let total = 0;
-        products.map(product => {
+        products.forEach(product => {
             total += product.quantity * product.price;
         });
 
         let items = 0;
-        products.map(product => {
+        products.forEach(product => {
             items += product.quantity;
         });
 
@@ -53,7 +75,8 @@ function Cart() {
     }
 
     async function deleteAllProducts() {
-        let removeAll = await HappyShoppingApi.deleteAllProductInCart(currentUser.username);
+        await HappyShoppingApi.deleteAllProductInCart(currentUser.username);
+        
         findProducts();
         calculateTotalPrice();
         updateCartProducts();

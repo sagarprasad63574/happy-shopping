@@ -7,7 +7,6 @@ import UserContext from "./auth/UserContext.js";
 import Navigation from "./routes-nav/Navigation.js";
 import Routes from "./routes-nav/Routes.js";
 import LoadingSpinner from "./common/LoadingSpinner.js";
-import logo from './logo.svg';
 import './App.css';
 
 export const TOKEN_STORAGE_ID = "happy-shopping-token";

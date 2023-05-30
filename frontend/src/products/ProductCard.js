@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import UserContext from "../auth/UserContext.js";
 import { Carousel } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import StarsRating from 'react-star-rate';
 import "./ProductCard.css";
 

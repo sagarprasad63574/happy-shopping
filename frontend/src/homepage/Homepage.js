@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../auth/UserContext.js";
-// import "./Homepage.css";
+import "./Homepage.css";
 
 function Homepage() {
     const { currentUser } = useContext(UserContext);
@@ -11,8 +11,15 @@ function Homepage() {
                 <h1 className="mb-4 font-weight-bold">Happy Shopping</h1>
                 <p className="lead">Convenient place for shopping.</p>
                 {currentUser
-                    ? <h2>
+                    ?
+                    <h2>
                         Welcome Back, {currentUser.firstName || currentUser.username}!
+                        <div>
+                            <Link className="btn btn-primary font-weight-bold"
+                                to="/products">
+                                SHOP
+                            </Link>
+                        </div>
                     </h2>
                     : (
                         <p>

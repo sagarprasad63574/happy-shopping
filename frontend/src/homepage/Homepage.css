@@ -1,0 +1,7 @@
+
+.Homepage {
+    height: calc(100vh - 150px);
+    display: flex;
+    align-items: center;
+    background-image: url(shopping.jpg);
+}

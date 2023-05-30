@@ -21,7 +21,7 @@ function Navigation({ logout }) {
                     </NavLink>
                 </li>
                 <li className="nav-item mr-2">
-                    <NavLink className="nav-link" to="/jobs">
+                    <NavLink className="nav-link" to="/favorites">
                     <i className="bi bi-heart mr-2"></i>
                         Favorites
                     </NavLink>
@@ -34,7 +34,7 @@ function Navigation({ logout }) {
                 </li>
                 <li className="nav-item">
                     <Link className="nav-link" to="/" onClick={logout}>
-                        Log out {currentUser.first_name || currentUser.username}
+                        Log out {currentUser.firstName || currentUser.username}
                     </Link>
                 </li>
             </ul>
@@ -45,28 +45,22 @@ function Navigation({ logout }) {
         return (
             <div className="order-lg-last col-lg-5 col-sm-8 col-8">
                 <div className="d-flex float-end">
-                    <a className="me-1 border rounded py-1 px-2 nav-link d-flex align-items-center">
+                    <div className="nav-link me-1 border rounded py-1 px-2 nav-link d-flex align-items-center">
                         <i className="bi bi-box-arrow-in-right"></i>
                         <p className="d-none d-md-block mb-0">
                             <NavLink className="nav-link" to="/login">
                                 Login
                             </NavLink>
                         </p>
-                    </a>
-                    <a className="me-1 border rounded py-1 px-2 nav-link d-flex align-items-center">
+                    </div>
+                    <div className="me-1 border rounded py-1 px-2 nav-link d-flex align-items-center">
                         <i className="bi bi-person-fill"></i>
                         <p className="d-none d-md-block mb-0">
                             <NavLink className="nav-link" to="/signup">
                                 Sign Up
                             </NavLink>
                         </p>
-                    </a>
-                    <a className="me-1 border rounded py-1 px-2 nav-link d-flex align-items-center">
-                        <i className="bi bi-cart3"></i>
-                        <p className="d-none d-md-block mb-0">
-                            Cart
-                        </p>
-                    </a>
+                    </div>
                 </div>
             </div>
         );
