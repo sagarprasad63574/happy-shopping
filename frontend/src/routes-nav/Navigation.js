@@ -38,74 +38,32 @@ function Navigation({ logout }) {
                     </Link>
                 </li>
             </ul>
-
-            // <div class="order-lg-last col-lg-5 col-sm-8 col-8">
-            //     <div class="d-flex float-end">
-            //         <a class="me-1 border rounded py-1 px-2 nav-link d-flex align-items-center">
-            //             <i class="bi bi-box-arrow-in-right"></i>
-            //             <p class="d-none d-md-block mb-0">
-            //                 <NavLink className="nav-link" to="/products">
-            //                     Products
-            //                 </NavLink>
-            //             </p>
-            //         </a>
-            //         <a class="me-1 border rounded py-1 px-2 nav-link d-flex align-items-center">
-            //             <i class="bi bi-person-fill"></i>
-            //             <p class="d-none d-md-block mb-0">
-            //                 <NavLink className="nav-link" to="/profile">
-            //                     Profile
-            //                 </NavLink>
-            //             </p>
-            //         </a>
-            //         <a class="me-1 border rounded py-1 px-2 nav-link d-flex align-items-center">
-            //             <i class="bi bi-cart3"></i>
-            //             <p class="d-none d-md-block mb-0">
-            //                 <NavLink className="nav-link" to="/profile">
-            //                     Profile
-            //                 </NavLink>
-            //             </p>
-            //         </a>
-            //     </div>
-            // </div>
-
         );
     }
 
     function loggedOutNav() {
         return (
-            // <ul className="navbar-nav ml-auto">
-            //     <li className="nav-item mr-4">
-            //         <NavLink className="nav-link" to="/login">
-            //             Login
-            //         </NavLink>
-            //     </li>
-            //     <li className="nav-item mr-4">
-            //         <NavLink className="nav-link" to="/signup">
-            //             Sign Up
-            //         </NavLink>
-            //     </li>
-            // </ul>
-            <div class="order-lg-last col-lg-5 col-sm-8 col-8">
-                <div class="d-flex float-end">
-                    <a class="me-1 border rounded py-1 px-2 nav-link d-flex align-items-center">
-                        <i class="bi bi-box-arrow-in-right"></i>
-                        <p class="d-none d-md-block mb-0">
+            <div className="order-lg-last col-lg-5 col-sm-8 col-8">
+                <div className="d-flex float-end">
+                    <a className="me-1 border rounded py-1 px-2 nav-link d-flex align-items-center">
+                        <i className="bi bi-box-arrow-in-right"></i>
+                        <p className="d-none d-md-block mb-0">
                             <NavLink className="nav-link" to="/login">
                                 Login
                             </NavLink>
                         </p>
                     </a>
-                    <a class="me-1 border rounded py-1 px-2 nav-link d-flex align-items-center">
-                        <i class="bi bi-person-fill"></i>
-                        <p class="d-none d-md-block mb-0">
+                    <a className="me-1 border rounded py-1 px-2 nav-link d-flex align-items-center">
+                        <i className="bi bi-person-fill"></i>
+                        <p className="d-none d-md-block mb-0">
                             <NavLink className="nav-link" to="/signup">
                                 Sign Up
                             </NavLink>
                         </p>
                     </a>
-                    <a class="me-1 border rounded py-1 px-2 nav-link d-flex align-items-center">
-                        <i class="bi bi-cart3"></i>
-                        <p class="d-none d-md-block mb-0">
+                    <a className="me-1 border rounded py-1 px-2 nav-link d-flex align-items-center">
+                        <i className="bi bi-cart3"></i>
+                        <p className="d-none d-md-block mb-0">
                             Cart
                         </p>
                     </a>

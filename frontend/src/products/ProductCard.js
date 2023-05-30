@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import UserContext from "../auth/UserContext.js";
 import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import StarsRating from 'react-star-rate';
 import "./ProductCard.css";
 
 function ProductCard({ id, title, description, price, discountPercentage, rating, stock, brand, category, thumbnail, images }) {
@@ -37,7 +38,12 @@ function ProductCard({ id, title, description, price, discountPercentage, rating
     return (
         <div className="col-sm-4 mt-4">
             {images ?
-                <Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
+                <Carousel
+                    fade
+                    variant="dark"
+                    activeIndex={index}
+                    onSelect={handleSelect}
+                    interval={null}>
                     {images.map(img => (
                         <Carousel.Item key={img.key}>
                             <img style={{ maxHeight: "200px" }}
@@ -56,11 +62,15 @@ function ProductCard({ id, title, description, price, discountPercentage, rating
                         {title}<br></br>
                         {category}
                     </h5>
-                    <p className="card-text">
+                    <div className="card-text">
                         <small>{description}</small> <br></br>
-                        <div class="read-only-ratings" data-rateyo-read-only="true"></div>
-                        {/* Rating: {rating} Stock: {stock}<br></br> */}
-                    </p>
+                        <div className="h-25 d-inline-block">
+                            <StarsRating
+                                value={rating}
+                                disabled
+                            />
+                        </div>
+                    </div>
                     <h3> ${price} </h3>
                     <button
                         className="btn btn-success shadow-0 mr-3"

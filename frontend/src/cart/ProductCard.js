@@ -14,7 +14,7 @@ function ProductCard({ id, title, quantity, description, price, discountPercenta
         productsInCart.forEach(product => products_cart.push(product.product_id));
         setCartProducts(new Set(products_cart));
     }
-    
+
     async function increment() {
         let qty = await HappyShoppingApi.incrementQuantity(currentUser.username, id);
         setProductQuantity(qty.quantity);
@@ -22,7 +22,7 @@ function ProductCard({ id, title, quantity, description, price, discountPercenta
     }
 
     async function decrement() {
-        if (productQuantity == 1) return; 
+        if (productQuantity == 1) return;
         let qty = await HappyShoppingApi.decrementQuantity(currentUser.username, id);
         setProductQuantity(qty.quantity);
         calculateTotalPrice();
@@ -70,10 +70,10 @@ function ProductCard({ id, title, quantity, description, price, discountPercenta
                     </div>
                     <div className="col-md-1 col-lg-1 col-xl-1 text-end">
                         <button
-                            className="btn btn-danger btn-sm"
+                            className="btn btn-danger btn-mg"
                             onClick={remove}
                         >
-                            <i className="fas fa-times"></i>
+                            <i class="bi bi-trash"></i>
                         </button>
                     </div>
                 </>

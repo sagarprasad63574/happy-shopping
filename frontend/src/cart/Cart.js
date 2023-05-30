@@ -55,6 +55,7 @@ function Cart() {
     async function deleteAllProducts() {
         let removeAll = await HappyShoppingApi.deleteAllProductInCart(currentUser.username);
         findProducts();
+        calculateTotalPrice();
         updateCartProducts();
     }
 
