@@ -138,6 +138,7 @@ class Product {
                   discountPercentage,
                   rating,
                   stock, 
+                  brand,
                   category,
                   thumbnail
            FROM products
@@ -187,6 +188,7 @@ class Product {
                                 discountPercentage,
                                 rating,
                                 stock, 
+                                brand,
                                 category,
                                 thumbnail`;
         const result = await db.query(querySql, [...values, id]);
