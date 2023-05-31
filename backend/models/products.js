@@ -73,7 +73,7 @@ class Product {
         let whereExpressions = [];
         let queryValues = [];
 
-        const { category, title } = searchFilters;
+        const { category, title, min, max } = searchFilters;
 
         // For each possible search term, add to whereExpressions and queryValues so
         // we can generate the right SQL
@@ -88,12 +88,22 @@ class Product {
             whereExpressions.push(`category LIKE $${queryValues.length}`);
         }
 
+        if (min) {
+            queryValues.push(`${min}`);
+            whereExpressions.push(`price >= $${queryValues.length}`);
+        }
+
+        if (max) {
+            queryValues.push(`${max}`);
+            whereExpressions.push(`price <= $${queryValues.length}`)
+        }
+  
         if (whereExpressions.length > 0) {
             query += " WHERE " + whereExpressions.join(" AND ");
         }
 
         // Finalize query and return results
-        query += " ORDER BY id";
+        query += " ORDER BY id, price";
         const productRes = await db.query(query, queryValues);
 
         for (let product of productRes.rows) {

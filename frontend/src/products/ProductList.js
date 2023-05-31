@@ -5,6 +5,7 @@ import ProductCard from "./ProductCard.js";
 import LoadingSpinner from "../common/LoadingSpinner.js";
 import Categories from "../category/Categories.js";
 import Intro from "../intro/Intro.js";
+import Price from "../price/price.js";
 
 function ProductList() {
     const [products, setProducts] = useState(null);
@@ -23,6 +24,21 @@ function ProductList() {
         setProducts(products);
     }
 
+    async function searchMinMax(min, max) {
+        let products = await HappyShoppingApi.getProductsMinMax(min, max);
+        setProducts(products);
+    }
+
+    async function searchMin(min) {
+        let products = await HappyShoppingApi.getProductsMin(min);
+        setProducts(products);
+    }
+
+    async function searchMax(max) {
+        let products = await HappyShoppingApi.getProductsMax(max);
+        setProducts(products);
+    }
+
     if (!products) return <LoadingSpinner />;
 
     return (
@@ -31,6 +47,7 @@ function ProductList() {
                 <Intro />
                 <SearchForm searchFor={search} />
                 <Categories searchCategory={searchCategory} />
+                <Price searchMinMax={searchMinMax} searchMin={searchMin} searchMax={searchMax}/>
 
                 {products.length
                     ? (

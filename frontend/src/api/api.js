@@ -57,6 +57,27 @@ class HappyShoppingApi {
         return res.products;
     }
 
+    /** Get products (filtered by title and category min and max if not undefined) */
+
+    static async getProductsMinMax(min, max) {
+        let res = await this.request("products", { min, max });
+        return res.products;
+    }
+
+    /** Get products (filtered by title and category min and max if not undefined) */
+
+    static async getProductsMin(min) {
+        let res = await this.request("products", { min });
+        return res.products;
+    }
+
+    /** Get products (filtered by title and category min and max if not undefined) */
+
+    static async getProductsMax(max) {
+        let res = await this.request("products", { max });
+        return res.products;
+    }
+
     /** Get products in cart */
 
     static async getProductsInCart(username) {
