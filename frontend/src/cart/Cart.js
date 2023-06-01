@@ -12,11 +12,6 @@ function Cart() {
     const [totalPrice, setTotalPrice] = useState(null);
     const [totalItems, setTotalItems] = useState(null);
 
-    // useEffect(function getProductsOnMount() {
-    //     findProducts();
-    //     calculateTotalPrice();
-    // }, []);
-
     useEffect(() => {
         async function getProductsOnMount() {
             let products = await HappyShoppingApi.getProductsInCart(currentUser.username);

@@ -12,11 +12,6 @@ function Favorites() {
     const [favoriteItems, setfavoriteItems] = useState(null);
     const [cartItems, setcartItems] = useState(null);
 
-    // useEffect(function getProductsOnMount() {
-    //     findProducts();
-    //     findTotalItems();
-    // }, []);
-
     useEffect(() => {
         async function getProductsOnMount() {
             let favorites = await HappyShoppingApi.getProductsInFavorites(currentUser.username);
