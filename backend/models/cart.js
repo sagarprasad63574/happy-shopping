@@ -113,6 +113,14 @@ class Cart {
     }
 
     static async increment(username, product_id) {
+        const checkProductExists = await db.query(
+            `SELECT * FROM products
+            WHERE id = $1`,
+            [product_id]);
+
+        const product = checkProductExists.rows[0];
+        if (!product) throw new NotFoundError(`No product found!`);
+
         let quantity = await db.query(
             `SELECT quantity 
             FROM cart
@@ -143,6 +151,14 @@ class Cart {
     }
 
     static async decrement(username, product_id) {
+        const checkProductExists = await db.query(
+            `SELECT * FROM products
+            WHERE id = $1`,
+            [product_id]);
+
+        const product = checkProductExists.rows[0];
+        if (!product) throw new NotFoundError(`No product found!`);
+        
         let quantity = await db.query(
             `SELECT quantity 
             FROM cart

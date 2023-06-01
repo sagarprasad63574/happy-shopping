@@ -10,8 +10,9 @@ const { BCRYPT_WORK_FACTOR } = require("../../config.js");
 const products = [];
 
 async function commonBeforeAll() {
+  await db.query("DELETE FROM favorites");
+  await db.query("DELETE FROM cart");
   await db.query("DELETE FROM products");
-
   await db.query("DELETE FROM users");
 
   products[0] = (await Product.create(
@@ -28,7 +29,7 @@ async function commonBeforeAll() {
       thumbnail: "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
     })).id;
 
-  products[1] = (await Product.create(
+  await Product.create(
     {
       id: 2,
       title: "iPhone X",
@@ -40,9 +41,9 @@ async function commonBeforeAll() {
       brand: "Apple",
       category: "smartphones",
       thumbnail: "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
-    })).id;
+    });
 
-  products[2] = (await Product.create(
+  await Product.create(
     {
       id: 3,
       title: "Samsung Universe 9",
@@ -54,7 +55,7 @@ async function commonBeforeAll() {
       brand: "Samsung",
       category: "smartphones",
       thumbnail: "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
-    })).id;
+    })
 
   await User.register({
     username: "u1",
@@ -83,16 +84,8 @@ async function commonBeforeAll() {
     isAdmin: false,
   });
 
-  console.log(await Product.findAll());
-  await Cart.add({
-    username: "u1",
-    product_id: products[0],
-  });
-
-  await Favorite.add({
-    username: "u1",
-    product_id: products[0],
-  });
+  await Cart.add("u1", 1);
+  await Favorite.add("u1", 1);
 
 }
 
