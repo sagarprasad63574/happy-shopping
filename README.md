@@ -7,7 +7,7 @@
 4. [User Flow](#User-Flow)
 5. [Features](#Features)
 6. [Schema](#Schema)
-7. [TESTS](#test)
+7. [Tests](#Tests)
 8. [API](#API)
 9. [Technology Stack](#Technology-Stack)
 
