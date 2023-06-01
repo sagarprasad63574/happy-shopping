@@ -17,8 +17,8 @@
 A ecommerce website where users are able to view products (title, description, price, brand, rating, and images). Users are able to add products to their shopping cart and add products to their favorite list. Users are able to view their cart, add the number quantity per product, delete products from cart, and checkout the their products. Users are able to view their favorites list and remove products from their favorites list.       
 
 ## Deployed
-#### Frontend: 
-#### Backend: 
+#### Frontend: https://place-to-shop.surge.sh/
+#### Backend: https://happy-shopping.herokuapp.com/
 
 ## Navigation
 
