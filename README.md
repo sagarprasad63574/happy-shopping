@@ -117,7 +117,7 @@ A ecommerce website where users are able to view products (title, description, p
 ## TESTS
 * Tests are located at the backend/tests folder
 * Tests included both testing integration testing and unit testing
-* To run all test type jest =i 
+* To run all test type jest -i 
 
 ## API
 ### https://dummyjson.com/
