@@ -7,8 +7,9 @@
 4. [User Flow](#User-Flow)
 5. [Features](#Features)
 6. [Schema](#Schema)
-7. [API](#API)
-8. [Technology Stack](#Technology-Stack)
+7. [TESTS](#test)
+8. [API](#API)
+9. [Technology Stack](#Technology-Stack)
 
 ## Overview
 
@@ -50,6 +51,16 @@ A ecommerce website where users are able to view products (title, description, p
 * If the user clicks on the logout link on the navigation bar, the user will be logout out of their account and redirected to login page. 
 
 ## Features
+* Search (Shop)
+ * Search for a title of a product. Returns a list of product based on the product title
+* Category (Shop)
+ * Able to select a category located in the shop menu. Returns a list of products filtered by category. 
+* Price (Shop)
+ * Input a min amount and a max amount to filter the products. Returns a list of products based on the min and max
+* Carousel (shop)
+ * Show a list of images on each product card in the products list. 
+* Quantity (Cart)
+ * Increase/Decrease the quantity of each product in the cart
 
 ## Schema 
 
@@ -103,12 +114,14 @@ A ecommerce website where users are able to view products (title, description, p
    | username | VarChar | Foreign Key |
    | product_id | Integer | Foreign Key |
 
+## TESTS
+* Tests are located at the backend/tests folder
+* Tests included both testing integration testing and unit testing
+* To run all test type jest =i 
+
 ## API
 ### https://dummyjson.com/
 
 ## Technology-Stack
-* Python, requests, json, blueprints
-* Flask framework
-* SQL Alchemy
-* Git
-* Heroku
+* Node.js, pg, express, supertest, jsonwebtoken, bcrypt
+* React, Axios, Bootstrap, reactstrap, bootstrap-icons, react-star-rate, slugify
